@@ -1,0 +1,35 @@
+<div class="dialog-overlay">
+
+    <div class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+
+        <div class="dialog-icon">
+            ⚠️
+        </div>
+
+        <h2 id="dialog-title">
+            {{ title }}
+        </h2>
+
+        <p>
+            {{ message }}
+        </p>
+
+        <div class="dialog-actions">
+
+            <button type="button" class="btn btn-cancel" (click)="cancel()">
+
+                {{ cancelText }}
+
+            </button>
+
+            <button type="button" class="btn btn-confirm" (click)="confirm()">
+
+                {{ confirmText }}
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

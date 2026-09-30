@@ -1,0 +1,228 @@
+{
+  "accounts": [
+    {
+      "id": "1",
+      "accountNumber": "1001001001",
+      "customerName": "Rahul Sharma",
+      "accountType": "Savings",
+      "branch": "Pune Main Branch",
+      "ifscCode": "BANK0001001",
+      "balance": 45000,
+      "email": "rahul.sharma@example.com",
+      "mobile": "9876543210",
+      "status": "Active",
+      "createdDate": "2026-01-15"
+    },
+    {
+      "id": "2",
+      "accountNumber": "1001001002",
+      "customerName": "Priya Patil",
+      "accountType": "Current",
+      "branch": "Mumbai Central",
+      "ifscCode": "BANK0001002",
+      "balance": 78000,
+      "email": "priya.patil@example.com",
+      "mobile": "9876543211",
+      "status": "Active",
+      "createdDate": "2026-02-10"
+    },
+    {
+      "id": "3",
+      "accountNumber": "1001001003",
+      "customerName": "Amit Deshmukh",
+      "accountType": "Salary",
+      "branch": "Nashik Branch",
+      "ifscCode": "BANK0001003",
+      "balance": 32000,
+      "email": "amit.deshmukh@example.com",
+      "mobile": "9876543212",
+      "status": "Inactive",
+      "createdDate": "2026-03-05"
+    },
+    {
+      "id": "4",
+      "accountNumber": "1001001004",
+      "customerName": "Sneha Kulkarni",
+      "accountType": "Savings",
+      "branch": "Pune Camp",
+      "ifscCode": "BANK0001004",
+      "balance": 95000,
+      "email": "sneha.kulkarni@example.com",
+      "mobile": "9876543213",
+      "status": "Active",
+      "createdDate": "2026-04-12"
+    },
+    {
+      "id": "5",
+      "accountNumber": "1001001005",
+      "customerName": "Vikram Jadhav",
+      "accountType": "Current",
+      "branch": "Solapur Branch",
+      "ifscCode": "BANK0001005",
+      "balance": 120000,
+      "email": "vikram.jadhav@example.com",
+      "mobile": "9876543214",
+      "status": "Active",
+      "createdDate": "2026-05-20"
+    },
+    {
+      "id": "6",
+      "accountNumber": "1001001006",
+      "customerName": "Neha Joshi",
+      "accountType": "Salary",
+      "branch": "Kolhapur Branch",
+      "ifscCode": "BANK0001006",
+      "balance": 55000,
+      "email": "neha.joshi@example.com",
+      "mobile": "9876543215",
+      "status": "Active",
+      "createdDate": "2026-06-18"
+    },
+    {
+      "customerName": "abhi",
+      "accountNumber": "1001001007",
+      "accountType": "Savings",
+      "branch": "Pune Main Branch",
+      "ifscCode": "SBIN0001234",
+      "balance": 56000,
+      "email": "abhi@gmail.com",
+      "mobile": "8788321682",
+      "status": "Active",
+      "createdDate": "2026-09-30",
+      "id": "c9znbqen4Ns"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "t1",
+      "accountId": "1",
+      "date": "2026-08-01T10:15:00",
+      "transactionId": "TXN10001",
+      "transactionType": "Deposit",
+      "amount": 50000,
+      "description": "Salary credit",
+      "balance": 50000
+    },
+    {
+      "id": "t2",
+      "accountId": "1",
+      "date": "2026-08-05T14:30:00",
+      "transactionId": "TXN10002",
+      "transactionType": "Withdrawal",
+      "amount": 5000,
+      "description": "ATM withdrawal",
+      "balance": 45000
+    },
+    {
+      "id": "t3",
+      "accountId": "2",
+      "date": "2026-08-03T09:45:00",
+      "transactionId": "TXN10003",
+      "transactionType": "Deposit",
+      "amount": 80000,
+      "description": "Business payment",
+      "balance": 80000
+    },
+    {
+      "id": "t4",
+      "accountId": "2",
+      "date": "2026-08-07T16:20:00",
+      "transactionId": "TXN10004",
+      "transactionType": "Withdrawal",
+      "amount": 2000,
+      "description": "Office expense",
+      "balance": 78000
+    },
+    {
+      "id": "t5",
+      "accountId": "3",
+      "date": "2026-08-10T11:00:00",
+      "transactionId": "TXN10005",
+      "transactionType": "Deposit",
+      "amount": 32000,
+      "description": "Salary credit",
+      "balance": 32000
+    },
+    {
+      "id": "t6",
+      "accountId": "4",
+      "date": "2026-08-12T12:10:00",
+      "transactionId": "TXN10006",
+      "transactionType": "Deposit",
+      "amount": 100000,
+      "description": "Cash deposit",
+      "balance": 100000
+    },
+    {
+      "id": "t7",
+      "accountId": "4",
+      "date": "2026-08-15T15:40:00",
+      "transactionId": "TXN10007",
+      "transactionType": "Withdrawal",
+      "amount": 5000,
+      "description": "ATM withdrawal",
+      "balance": 95000
+    },
+    {
+      "id": "t8",
+      "accountId": "5",
+      "date": "2026-08-18T10:25:00",
+      "transactionId": "TXN10008",
+      "transactionType": "Deposit",
+      "amount": 125000,
+      "description": "Business deposit",
+      "balance": 125000
+    },
+    {
+      "id": "t9",
+      "accountId": "5",
+      "date": "2026-08-20T13:15:00",
+      "transactionId": "TXN10009",
+      "transactionType": "Withdrawal",
+      "amount": 5000,
+      "description": "Vendor payment",
+      "balance": 120000
+    },
+    {
+      "id": "t10",
+      "accountId": "6",
+      "date": "2026-08-22T09:30:00",
+      "transactionId": "TXN10010",
+      "transactionType": "Deposit",
+      "amount": 55000,
+      "description": "Salary credit",
+      "balance": 55000
+    },
+    {
+      "id": "IF77cdUAxnw",
+      "accountId": "c9znbqen4Ns",
+      "date": "2026-09-30T08:22:50.912Z",
+      "transactionId": "TXN-1790756570912",
+      "transactionType": "Deposit",
+      "amount": 10000,
+      "description": "Test deposit",
+      "balance": 60000
+    },
+    {
+      "id": "XySBaahxw8A",
+      "accountId": "c9znbqen4Ns",
+      "date": "2026-09-30T08:24:27.513Z",
+      "transactionId": "TXN-1790756667513",
+      "transactionType": "Withdrawal",
+      "amount": 5000,
+      "description": "Test withdrawal",
+      "balance": 55000
+    },
+    {
+      "id": "jj9h4SnkR2s",
+      "accountId": "c9znbqen4Ns",
+      "date": "2026-09-30T09:11:48.765Z",
+      "transactionId": "TXN-1790759508765",
+      "transactionType": "Deposit",
+      "amount": 1000,
+      "description": "Final test deposit",
+      "balance": 56000
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

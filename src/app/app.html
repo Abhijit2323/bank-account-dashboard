@@ -1,0 +1,43 @@
+<div class="app-container">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">🏦</span>
+      <span>Bank Account Management</span>
+    </div>
+  </header>
+
+  <div class="main-layout">
+
+    <aside class="sidebar">
+
+      <nav class="navigation">
+
+        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link">
+          <span>📊</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a routerLink="/accounts" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link">
+          <span>👥</span>
+          <span>Accounts</span>
+        </a>
+
+        <a routerLink="/accounts/add" routerLinkActive="active" class="nav-link">
+          <span>➕</span>
+          <span>Add Account</span>
+        </a>
+
+      </nav>
+
+    </aside>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>

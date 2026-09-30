@@ -1,0 +1,372 @@
+.accounts-page {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+        margin: 0;
+        font-size: 28px;
+        color: #1f2937;
+    }
+
+    p {
+        margin: 6px 0 0;
+        color: #6b7280;
+    }
+}
+
+.add-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 18px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.add-button:hover {
+    background: #1d4ed8;
+}
+
+.filter-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 16px;
+    align-items: end;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.search-box,
+.filter-box {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.search-box label,
+.filter-box label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.search-box input,
+.filter-box select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #374151;
+    outline: none;
+}
+
+.search-box input:focus,
+.filter-box select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.clear-button {
+    height: 42px;
+    padding: 0 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #374151;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.clear-button:hover {
+    background: #f3f4f6;
+}
+
+.table-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f8fafc;
+}
+
+th {
+    padding: 15px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+th:last-child {
+    cursor: default;
+}
+
+.sort-icon {
+    margin-left: 5px;
+    color: #9ca3af;
+}
+
+td {
+    padding: 15px 14px;
+    border-bottom: 1px solid #f0f1f3;
+    color: #374151;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.account-number {
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.balance {
+    font-weight: 700;
+    color: #111827;
+}
+
+.type-badge,
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.type-badge {
+    background: #eef2ff;
+    color: #4338ca;
+}
+
+.status-badge.active {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.inactive {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.actions {
+    display: flex;
+    gap: 7px;
+}
+
+.action {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #f3f4f6;
+}
+
+.action:hover {
+    background: #e5e7eb;
+}
+
+.action.view {
+    color: #2563eb;
+}
+
+.action.edit {
+    color: #d97706;
+}
+
+.action.delete {
+    color: #dc2626;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.pagination-info {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.pagination-controls button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #374151;
+    cursor: pointer;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background: #f3f4f6;
+}
+
+.pagination-controls button.current {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.state-card,
+.empty-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.spinner {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 12px;
+    border: 3px solid #dbeafe;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.empty-icon {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.empty-card h2 {
+    margin: 0;
+    color: #1f2937;
+}
+
+.empty-card p {
+    margin: 8px 0 18px;
+    color: #6b7280;
+}
+
+.error-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fff7f7;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    color: #991b1b;
+}
+
+.error-card p {
+    margin: 6px 0 0;
+}
+
+.retry-button {
+    padding: 9px 15px;
+    border: none;
+    border-radius: 7px;
+    background: #dc2626;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 1000px) {
+    .filter-card {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .clear-button {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 650px) {
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filter-card {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .pagination-controls {
+        flex-wrap: wrap;
+    }
+
+    .error-card {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+}

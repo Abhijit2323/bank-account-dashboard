@@ -1,0 +1,719 @@
+<div class="page-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>Account Details</h1>
+
+            <p>
+                View account information and manage transactions
+            </p>
+        </div>
+
+        <div class="header-actions">
+
+            <button type="button" class="btn btn-secondary" routerLink="/accounts">
+
+                ← Back to Accounts
+
+            </button>
+
+
+            <button type="button" class="btn btn-primary" (click)="editAccount()" [disabled]="!account">
+
+                ✏️ Edit Account
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Loading Account -->
+    <div class="state-card" *ngIf="loading">
+
+        <app-loading-spinner message="Loading account details...">
+        </app-loading-spinner>
+
+    </div>
+
+
+    <!-- Account Loading Error -->
+    <div class="state-card error-state" *ngIf="!loading && errorMessage">
+
+        <div class="state-icon">
+            ⚠️
+        </div>
+
+        <h3>
+            Unable to load account
+        </h3>
+
+        <p>
+            {{ errorMessage }}
+        </p>
+
+        <button type="button" class="btn btn-primary" (click)="retryAccount()">
+
+            ↻ Retry
+
+        </button>
+
+    </div>
+
+
+    <!-- Account Content -->
+    <div *ngIf="!loading && account" class="details-content">
+
+
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+
+
+            <!-- Balance -->
+            <div class="summary-card balance-card">
+
+                <div class="summary-icon">
+                    ₹
+                </div>
+
+                <div>
+
+                    <span class="summary-label">
+                        Account Balance
+                    </span>
+
+                    <h2>
+                        ₹{{ account.balance | number:'1.0-0' }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- Account Type -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    🏦
+                </div>
+
+                <div>
+
+                    <span class="summary-label">
+                        Account Type
+                    </span>
+
+                    <h3>
+                        {{ account.accountType }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Account Status -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    ●
+                </div>
+
+                <div>
+
+                    <span class="summary-label">
+                        Account Status
+                    </span>
+
+                    <span class="status-badge" [class.active]="account.status === 'Active'"
+                        [class.inactive]="account.status === 'Inactive'">
+
+                        {{ account.status }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Account Information -->
+        <div class="section-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Account Information
+                    </h2>
+
+                    <p>
+                        Basic information about this bank account
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Customer Name
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.customerName }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Account Number
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.accountNumber }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Account Type
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.accountType }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Branch
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.branch }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        IFSC Code
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.ifscCode }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Balance
+                    </span>
+
+                    <span class="info-value">
+                        ₹{{ account.balance | number:'1.0-0' }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.email }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Mobile Number
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.mobile }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Created Date
+                    </span>
+
+                    <span class="info-value">
+                        {{ account.createdDate | date:'dd MMM yyyy' }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Status
+                    </span>
+
+                    <span class="status-badge" [class.active]="account.status === 'Active'"
+                        [class.inactive]="account.status === 'Inactive'">
+
+                        {{ account.status }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Transaction Management -->
+        <div class="section-card transaction-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Transaction Management
+                    </h2>
+
+                    <p>
+                        Deposit or withdraw money from this account
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Inactive Account Warning -->
+            <div class="inactive-warning" *ngIf="account.status === 'Inactive'">
+
+                ⚠️ This account is inactive.
+                Transactions are not allowed.
+
+            </div>
+
+
+            <!-- Transaction Success -->
+            <div class="message success-message" *ngIf="transactionSuccessMessage">
+
+                ✓ {{ transactionSuccessMessage }}
+
+            </div>
+
+
+            <!-- Transaction Error -->
+            <div class="message error-message" *ngIf="transactionError">
+
+                ⚠️ {{ transactionError }}
+
+            </div>
+
+
+            <!-- Transaction Form -->
+            <form [formGroup]="transactionForm" (ngSubmit)="submitTransaction()" class="transaction-form">
+
+
+                <!-- Transaction Type -->
+                <div class="form-group">
+
+                    <label for="transactionType">
+
+                        Transaction Type
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <select id="transactionType" formControlName="transactionType">
+
+                        <option value="Deposit">
+                            Deposit
+                        </option>
+
+                        <option value="Withdrawal">
+                            Withdrawal
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Amount -->
+                <div class="form-group">
+
+                    <label for="amount">
+
+                        Amount
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="input-with-prefix">
+
+                        <span>
+                            ₹
+                        </span>
+
+                        <input id="amount" type="number" formControlName="amount" min="0.01" step="0.01"
+                            placeholder="Enter amount" />
+
+                    </div>
+
+
+                    <div class="field-error" *ngIf="hasTransactionError('amount', 'required')">
+
+                        Amount is required.
+
+                    </div>
+
+
+                    <div class="field-error" *ngIf="hasTransactionError('amount', 'min')">
+
+                        Amount must be greater than zero.
+
+                    </div>
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="form-group description-group">
+
+                    <label for="description">
+
+                        Description
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <input id="description" type="text" formControlName="description"
+                        placeholder="Example: Salary credit, Cash withdrawal" />
+
+
+                    <div class="field-error" *ngIf="hasTransactionError('description', 'required')">
+
+                        Description is required.
+
+                    </div>
+
+
+                    <div class="field-error" *ngIf="hasTransactionError('description', 'minlength')">
+
+                        Description must contain at least 3 characters.
+
+                    </div>
+
+                </div>
+
+
+                <!-- Available Balance -->
+                <div class="available-balance">
+
+                    <span>
+                        Available Balance
+                    </span>
+
+                    <strong>
+                        ₹{{ account.balance | number:'1.0-0' }}
+                    </strong>
+
+                </div>
+
+
+                <!-- Submit -->
+                <div class="transaction-actions">
+
+                    <button type="submit" class="btn btn-primary transaction-submit" [disabled]="
+              transactionSubmitting ||
+              account.status === 'Inactive'
+            ">
+
+
+                        <span *ngIf="!transactionSubmitting">
+
+                            💰 Submit Transaction
+
+                        </span>
+
+
+                        <span *ngIf="transactionSubmitting">
+
+                            Processing...
+
+                        </span>
+
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Transaction History -->
+        <div class="section-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Transaction History
+                    </h2>
+
+                    <p>
+
+                        {{ transactions.length }}
+
+                        transaction{{ transactions.length === 1 ? '' : 's' }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Transaction Loading -->
+            <div class="table-state" *ngIf="transactionLoading">
+
+                <app-loading-spinner message="Loading transaction history...">
+                </app-loading-spinner>
+
+            </div>
+
+
+            <!-- Transaction Error -->
+            <div class="table-state error-state" *ngIf="
+          !transactionLoading &&
+          transactionError
+        ">
+
+                <div class="state-icon">
+                    ⚠️
+                </div>
+
+                <p>
+                    {{ transactionError }}
+                </p>
+
+                <button type="button" class="btn btn-primary" (click)="retryTransactions()">
+
+                    ↻ Retry
+
+                </button>
+
+            </div>
+
+
+            <!-- No Transactions -->
+            <div class="table-state" *ngIf="
+          !transactionLoading &&
+          !transactionError &&
+          transactions.length === 0
+        ">
+
+                <div class="state-icon">
+                    💳
+                </div>
+
+                <h3>
+                    No transactions yet
+                </h3>
+
+                <p>
+                    Deposit or withdraw money to see
+                    transaction history here.
+                </p>
+
+            </div>
+
+
+            <!-- Transaction Table -->
+            <div class="table-wrapper" *ngIf="
+          !transactionLoading &&
+          !transactionError &&
+          transactions.length > 0
+        ">
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Transaction ID
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Balance
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr *ngFor="
+                let transaction of transactions
+              ">
+
+
+                            <td>
+
+                                {{
+                                transaction.date
+                                | date:'dd MMM yyyy, hh:mm a'
+                                }}
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="transaction-id">
+
+                                    {{ transaction.transactionId }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="transaction-type" [class.deposit]="
+                    transaction.transactionType === 'Deposit'
+                  " [class.withdrawal]="
+                    transaction.transactionType === 'Withdrawal'
+                  ">
+
+                                    {{ transaction.transactionType }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                {{ transaction.description }}
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="transaction-amount" [class.deposit-amount]="
+                    transaction.transactionType === 'Deposit'
+                  " [class.withdrawal-amount]="
+                    transaction.transactionType === 'Withdrawal'
+                  ">
+
+                                    {{
+                                    transaction.transactionType === 'Deposit'
+                                    ? '+'
+                                    : '-'
+                                    }}
+
+                                    ₹{{ transaction.amount | number:'1.0-2' }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                ₹{{ transaction.balance | number:'1.0-2' }}
+
+                            </td>
+
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

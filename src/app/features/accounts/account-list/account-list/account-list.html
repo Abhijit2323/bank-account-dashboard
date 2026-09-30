@@ -1,0 +1,526 @@
+<div class="page-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>Account Management</h1>
+
+            <p>
+                Manage bank accounts, search customers, and update account information.
+            </p>
+        </div>
+
+        <a routerLink="/accounts/add" class="btn btn-primary">
+
+            + Add Account
+
+        </a>
+
+    </div>
+
+
+    <!-- Filters -->
+    <div class="filter-card">
+
+        <div class="filter-header">
+
+            <div>
+                <h2>Search & Filters</h2>
+
+                <p>
+                    Find accounts using customer name, account number, branch, or email.
+                </p>
+            </div>
+
+            <button type="button" class="btn btn-secondary" (click)="clearFilters()">
+
+                Clear Filters
+
+            </button>
+
+        </div>
+
+
+        <div class="filter-grid">
+
+            <!-- Search -->
+            <div class="form-group search-group">
+
+                <label for="search">
+                    Search Accounts
+                </label>
+
+                <input id="search" type="text" [formControl]="searchControl"
+                    placeholder="Search by name, account number, branch, or email..." />
+
+            </div>
+
+
+            <!-- Account Type -->
+            <div class="form-group">
+
+                <label for="accountType">
+                    Account Type
+                </label>
+
+                <select id="accountType" [value]="selectedType" (change)="onTypeChange($any($event.target).value)">
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                    <option value="Savings">
+                        Savings
+                    </option>
+
+                    <option value="Current">
+                        Current
+                    </option>
+
+                    <option value="Salary">
+                        Salary
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Status -->
+            <div class="form-group">
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select id="status" [value]="selectedStatus" (change)="onStatusChange($any($event.target).value)">
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Loading State -->
+    <div class="state-card" *ngIf="loading">
+
+        <app-loading-spinner message="Loading accounts...">
+        </app-loading-spinner>
+
+    </div>
+
+
+    <!-- Error State -->
+    <div class="state-card error-state" *ngIf="!loading && errorMessage">
+
+        <div class="state-icon">
+            ⚠️
+        </div>
+
+        <h3>
+            Unable to load accounts
+        </h3>
+
+        <p>
+            {{ errorMessage }}
+        </p>
+
+        <button type="button" class="btn btn-primary" (click)="retry()">
+
+            ↻ Retry
+
+        </button>
+
+    </div>
+
+
+    <!-- Accounts Table -->
+    <div class="table-card" *ngIf="!loading && !errorMessage">
+
+
+        <!-- Table Header -->
+        <div class="table-header">
+
+            <div>
+
+                <h2>
+                    Bank Accounts
+                </h2>
+
+                <p>
+                    Showing {{ filteredAccounts.length }} account(s)
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="filteredAccounts.length === 0">
+
+            <div class="state-icon">
+                💳
+            </div>
+
+            <h3>
+                No accounts found
+            </h3>
+
+            <p>
+                No accounts match your current search or filters.
+            </p>
+
+            <button type="button" class="btn btn-secondary" (click)="clearFilters()">
+
+                Clear Filters
+
+            </button>
+
+        </div>
+
+
+        <!-- Table -->
+        <div class="table-wrapper" *ngIf="filteredAccounts.length > 0">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <!-- Account Number -->
+                        <th (click)="sortBy('accountNumber')" class="sortable">
+
+                            Account Number
+
+                            <span *ngIf="sortField === 'accountNumber'">
+
+                                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+
+                            </span>
+
+                        </th>
+
+
+                        <!-- Customer -->
+                        <th (click)="sortBy('customerName')" class="sortable">
+
+                            Customer Name
+
+                            <span *ngIf="sortField === 'customerName'">
+
+                                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+
+                            </span>
+
+                        </th>
+
+
+                        <!-- Account Type -->
+                        <th (click)="sortBy('accountType')" class="sortable">
+
+                            Account Type
+
+                            <span *ngIf="sortField === 'accountType'">
+
+                                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+
+                            </span>
+
+                        </th>
+
+
+                        <!-- Branch -->
+                        <th (click)="sortBy('branch')" class="sortable">
+
+                            Branch
+
+                            <span *ngIf="sortField === 'branch'">
+
+                                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+
+                            </span>
+
+                        </th>
+
+
+                        <!-- Balance -->
+                        <th (click)="sortBy('balance')" class="sortable">
+
+                            Balance
+
+                            <span *ngIf="sortField === 'balance'">
+
+                                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+
+                            </span>
+
+                        </th>
+
+
+                        <!-- Status -->
+                        <th (click)="sortBy('status')" class="sortable">
+
+                            Status
+
+                            <span *ngIf="sortField === 'status'">
+
+                                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+
+                            </span>
+
+                        </th>
+
+
+                        <!-- Created Date -->
+                        <th (click)="sortBy('createdDate')" class="sortable">
+
+                            Created Date
+
+                            <span *ngIf="sortField === 'createdDate'">
+
+                                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+
+                            </span>
+
+                        </th>
+
+
+                        <!-- Actions -->
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr *ngFor="let account of paginatedAccounts">
+
+
+                        <!-- Account Number -->
+                        <td>
+
+                            <span class="account-number">
+
+                                {{ account.accountNumber }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Customer -->
+                        <td>
+
+                            <div class="customer-cell">
+
+                                <strong>
+                                    {{ account.customerName }}
+                                </strong>
+
+                                <small>
+                                    {{ account.email }}
+                                </small>
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Account Type -->
+                        <td>
+
+                            <span class="type-badge">
+
+                                {{ account.accountType }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Branch -->
+                        <td>
+
+                            {{ account.branch }}
+
+                        </td>
+
+
+                        <!-- Balance -->
+                        <td>
+
+                            <strong class="balance">
+
+                                ₹{{ account.balance | number:'1.0-0' }}
+
+                            </strong>
+
+                        </td>
+
+
+                        <!-- Status -->
+                        <td>
+
+                            <span class="status-badge" [class.active]="account.status === 'Active'"
+                                [class.inactive]="account.status === 'Inactive'">
+
+                                {{ account.status }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Created Date -->
+                        <td>
+
+                            {{ account.createdDate | date:'dd MMM yyyy' }}
+
+                        </td>
+
+
+                        <!-- Actions -->
+                        <td>
+
+                            <div class="action-buttons">
+
+
+                                <!-- View -->
+                                <button type="button" class="action-btn view-btn" title="View Account"
+                                    (click)="viewAccount(account.id)">
+
+                                    👁️
+
+                                </button>
+
+
+                                <!-- Edit -->
+                                <button type="button" class="action-btn edit-btn" title="Edit Account"
+                                    (click)="editAccount(account.id)">
+
+                                    ✏️
+
+                                </button>
+
+
+                                <!-- Delete -->
+                                <button type="button" class="action-btn delete-btn" title="Delete Account"
+                                    (click)="deleteAccount(account)">
+
+                                    🗑️
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- Pagination -->
+        <div class="pagination" *ngIf="filteredAccounts.length > 0">
+
+
+            <div class="pagination-info">
+
+                Showing
+
+                {{
+                ((currentPage - 1) * pageSize) + 1
+                }}
+
+                to
+
+                {{
+                Math.min(
+                currentPage * pageSize,
+                filteredAccounts.length
+                )
+                }}
+
+                of
+
+                {{ filteredAccounts.length }}
+
+                accounts
+
+            </div>
+
+
+            <div class="pagination-controls">
+
+
+                <!-- Previous -->
+                <button type="button" class="page-btn" [disabled]="currentPage === 1"
+                    (click)="goToPage(currentPage - 1)">
+
+                    ← Previous
+
+                </button>
+
+
+                <!-- Page Numbers -->
+                <button type="button" class="page-number" *ngFor="let page of pageNumbers"
+                    [class.active]="currentPage === page" (click)="goToPage(page)">
+
+                    {{ page }}
+
+                </button>
+
+
+                <!-- Next -->
+                <button type="button" class="page-btn" [disabled]="currentPage === totalPages"
+                    (click)="goToPage(currentPage + 1)">
+
+                    Next →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Reusable Delete Confirmation Dialog -->
+    <app-confirm-dialog *ngIf="showDeleteDialog && accountToDelete" title="Delete Account" [message]="
+      'Are you sure you want to delete the account of ' +
+      accountToDelete.customerName +
+      '?'
+    " confirmText="Delete" cancelText="Cancel" (confirmed)="confirmDelete()" (cancelled)="cancelDelete()">
+
+    </app-confirm-dialog>
+
+
+</div>

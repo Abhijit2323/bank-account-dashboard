@@ -1,0 +1,118 @@
+<div class="dashboard">
+
+    <div class="page-header">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Overview of bank account management</p>
+        </div>
+
+        <button class="refresh-button" type="button" (click)="retry()">
+            ↻ Refresh
+        </button>
+    </div>
+
+    @if (loading) {
+    <div class="state-card">
+        <div class="spinner"></div>
+        <p>Loading dashboard...</p>
+    </div>
+    }
+
+    @if (errorMessage && !loading) {
+    <div class="error-card">
+        <div>
+            <strong>Something went wrong</strong>
+            <p>{{ errorMessage }}</p>
+        </div>
+
+        <button type="button" class="retry-button" (click)="retry()">
+            Retry
+        </button>
+    </div>
+    }
+
+    @if (dashboardData && !loading) {
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon accounts-icon">👥</div>
+            <div>
+                <p>Total Accounts</p>
+                <h2>{{ dashboardData.totalAccounts }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon active-icon">✓</div>
+            <div>
+                <p>Active Accounts</p>
+                <h2>{{ dashboardData.activeAccounts }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon inactive-icon">!</div>
+            <div>
+                <p>Inactive Accounts</p>
+                <h2>{{ dashboardData.inactiveAccounts }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon balance-icon">₹</div>
+            <div>
+                <p>Total Account Balance</p>
+                <h2>
+                    ₹{{ dashboardData.totalBalance | number:'1.0-0' }}
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="summary-card">
+
+        <div class="card-header">
+            <div>
+                <h2>Account Type Summary</h2>
+                <p>Distribution of accounts by type</p>
+            </div>
+        </div>
+
+        <div class="type-list">
+
+            @for (item of dashboardData.accountTypeSummary; track item.type) {
+
+            <div class="type-row">
+
+                <div class="type-info">
+                    <span class="type-name">
+                        {{ item.type }}
+                    </span>
+
+                    <span class="type-count">
+                        {{ item.count }} accounts
+                    </span>
+                </div>
+
+                <div class="bar-container">
+                    <div class="bar" [style.width.%]="getPercentage(item.count)">
+                    </div>
+                </div>
+
+                <span class="percentage">
+                    {{ getPercentage(item.count) | number:'1.0-0' }}%
+                </span>
+
+            </div>
+
+            }
+
+        </div>
+
+    </div>
+
+    }
+
+</div>

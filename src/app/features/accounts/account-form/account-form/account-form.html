@@ -1,0 +1,474 @@
+<div class="account-form-page">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>
+                {{ isEditMode ? 'Edit Account' : 'Add New Account' }}
+            </h1>
+
+            <p>
+                {{
+                isEditMode
+                ? 'Update customer account information'
+                : 'Create a new bank account'
+                }}
+            </p>
+        </div>
+
+        <a routerLink="/accounts" class="back-button">
+            ← Back to Accounts
+        </a>
+
+    </div>
+
+    <!-- Loading -->
+    @if (loading) {
+
+    <div class="state-card">
+
+        <div class="spinner"></div>
+
+        <p>
+            Loading account details...
+        </p>
+
+    </div>
+
+    }
+
+    <!-- Error -->
+    @if (errorMessage && !loading) {
+
+    <div class="error-card">
+
+        <strong>
+            {{ errorMessage }}
+        </strong>
+
+    </div>
+
+    }
+
+    <!-- Success -->
+    @if (successMessage) {
+
+    <div class="success-card">
+
+        ✓ {{ successMessage }}
+
+    </div>
+
+    }
+
+    <!-- Form -->
+    @if (!loading) {
+
+    <form [formGroup]="accountForm" (ngSubmit)="submitForm()" class="account-form">
+
+        <!-- Customer Information -->
+        <div class="form-section">
+
+            <div class="section-header">
+
+                <h2>
+                    Customer Information
+                </h2>
+
+                <p>
+                    Enter the customer's personal information.
+                </p>
+
+            </div>
+
+            <div class="form-grid">
+
+                <!-- Customer Name -->
+                <div class="form-field full-width">
+
+                    <label for="customerName">
+                        Customer Name
+                        <span>*</span>
+                    </label>
+
+                    <input id="customerName" type="text" formControlName="customerName"
+                        placeholder="Enter customer name">
+
+                    @if (
+                    f.customerName.touched &&
+                    f.customerName.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Customer name is required.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.customerName.touched &&
+                    f.customerName.hasError('minlength')
+                    ) {
+
+                    <small class="error-text">
+                        Customer name must be at least 2 characters.
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Email -->
+                <div class="form-field">
+
+                    <label for="email">
+                        Email Address
+                        <span>*</span>
+                    </label>
+
+                    <input id="email" type="email" formControlName="email" placeholder="customer@example.com">
+
+                    @if (
+                    f.email.touched &&
+                    f.email.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Email is required.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.email.touched &&
+                    f.email.hasError('email')
+                    ) {
+
+                    <small class="error-text">
+                        Please enter a valid email address.
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Mobile -->
+                <div class="form-field">
+
+                    <label for="mobile">
+                        Mobile Number
+                        <span>*</span>
+                    </label>
+
+                    <input id="mobile" type="text" inputmode="numeric" maxlength="10" formControlName="mobile"
+                        placeholder="10-digit mobile number">
+
+                    @if (
+                    f.mobile.touched &&
+                    f.mobile.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Mobile number is required.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.mobile.touched &&
+                    f.mobile.hasError('pattern')
+                    ) {
+
+                    <small class="error-text">
+                        Mobile number must contain exactly 10 digits.
+                    </small>
+
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Account Information -->
+        <div class="form-section">
+
+            <div class="section-header">
+
+                <h2>
+                    Account Information
+                </h2>
+
+                <p>
+                    Enter the bank account details.
+                </p>
+
+            </div>
+
+            <div class="form-grid">
+
+                <!-- Account Number -->
+                <div class="form-field">
+
+                    <label for="accountNumber">
+                        Account Number
+                        <span>*</span>
+                    </label>
+
+                    <input id="accountNumber" type="text" inputmode="numeric" formControlName="accountNumber"
+                        placeholder="Enter account number">
+
+                    @if (
+                    f.accountNumber.touched &&
+                    f.accountNumber.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Account number is required.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.accountNumber.touched &&
+                    f.accountNumber.hasError('pattern')
+                    ) {
+
+                    <small class="error-text">
+                        Account number must contain only numbers.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.accountNumber.touched &&
+                    f.accountNumber.hasError('minlength')
+                    ) {
+
+                    <small class="error-text">
+                        Account number must be at least 8 digits.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.accountNumber.touched &&
+                    f.accountNumber.hasError('duplicate')
+                    ) {
+
+                    <small class="error-text">
+                        This account number already exists.
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Account Type -->
+                <div class="form-field">
+
+                    <label for="accountType">
+                        Account Type
+                        <span>*</span>
+                    </label>
+
+                    <select id="accountType" formControlName="accountType">
+
+                        <option value="Savings">
+                            Savings
+                        </option>
+
+                        <option value="Current">
+                            Current
+                        </option>
+
+                        <option value="Salary">
+                            Salary
+                        </option>
+
+                    </select>
+
+                    @if (
+                    f.accountType.touched &&
+                    f.accountType.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Account type is required.
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Branch -->
+                <div class="form-field">
+
+                    <label for="branch">
+                        Branch
+                        <span>*</span>
+                    </label>
+
+                    <input id="branch" type="text" formControlName="branch" placeholder="Enter branch name">
+
+                    @if (
+                    f.branch.touched &&
+                    f.branch.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Branch is required.
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- IFSC -->
+                <div class="form-field">
+
+                    <label for="ifscCode">
+                        IFSC Code
+                        <span>*</span>
+                    </label>
+
+                    <input id="ifscCode" type="text" maxlength="11" formControlName="ifscCode"
+                        placeholder="Example: SBIN0001234">
+
+                    @if (
+                    f.ifscCode.touched &&
+                    f.ifscCode.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        IFSC code is required.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.ifscCode.touched &&
+                    f.ifscCode.hasError('pattern')
+                    ) {
+
+                    <small class="error-text">
+                        Enter a valid 11-character IFSC code.
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Balance -->
+                <div class="form-field">
+
+                    <label for="balance">
+                        Initial Balance
+                        <span>*</span>
+                    </label>
+
+                    <div class="input-with-prefix">
+
+                        <span>₹</span>
+
+                        <input id="balance" type="number" min="0" formControlName="balance" placeholder="0">
+
+                    </div>
+
+                    @if (
+                    f.balance.touched &&
+                    f.balance.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Initial balance is required.
+                    </small>
+
+                    }
+
+                    @if (
+                    f.balance.touched &&
+                    f.balance.hasError('min')
+                    ) {
+
+                    <small class="error-text">
+                        Balance cannot be negative.
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Status -->
+                <div class="form-field">
+
+                    <label for="status">
+                        Status
+                        <span>*</span>
+                    </label>
+
+                    <select id="status" formControlName="status">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                    @if (
+                    f.status.touched &&
+                    f.status.hasError('required')
+                    ) {
+
+                    <small class="error-text">
+                        Status is required.
+                    </small>
+
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+
+            <button type="button" class="cancel-button" (click)="cancel()" [disabled]="submitting">
+
+                Cancel
+
+            </button>
+
+            <button type="submit" class="submit-button" [disabled]="submitting">
+
+                @if (submitting) {
+
+                <span>
+                    Saving...
+                </span>
+
+                } @else {
+
+                <span>
+                    {{ isEditMode ? 'Update Account' : 'Create Account' }}
+                </span>
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+    }
+
+</div>
